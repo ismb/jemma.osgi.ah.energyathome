@@ -29,8 +29,7 @@
 	<properties>
 		<javax.servlet.version>2.5.0</javax.servlet.version>
 		<felix.bundle.plugin.version>2.5.3</felix.bundle.plugin.version>
-		<org.apache.commons.httpclient.version>4.1</org.apache.commons.httpclient.version>
-		<org.apache.commons.httpcore.version>4.1</org.apache.commons.httpcore.version>
+		<org.apache.commons.httpclient.version>3.1.0</org.apache.commons.httpclient.version>
 		<org.apache.commons.codec.version>1.3.0</org.apache.commons.codec.version>
 		<org.energy-home.jemma.osgi.ah.hac.lib.version>3.1.4</org.energy-home.jemma.osgi.ah.hac.lib.version>
 		<org.energy-home.jemma.osgi.ah.m2m.device.version>1.2.15</org.energy-home.jemma.osgi.ah.m2m.device.version>
@@ -196,21 +195,12 @@
 			<version>${org.eclipse.osgi.services.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-
-
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient-osgi</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>org.apache.commons.httpclient</artifactId>
 			<version>${org.apache.commons.httpclient.version}</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore-osgi</artifactId>
-			<version>${org.apache.commons.httpcore.version}</version>
-			<scope>compile</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>org.apache.commons.codec</artifactId>
