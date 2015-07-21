@@ -108,7 +108,7 @@
 							 org.osgi.service.event,
 							 org.energy_home.jemma.shal,
 							 org.energy_home.jemma.shal.min,
-							 *
+							 org.apache.http,*
 						</Import-Package>
 						<Export-Package>org.energy_home.jemma.ah.ebrain,
 							 org.energy_home.jemma.ah.ebrain.algo,
@@ -225,5 +225,15 @@
 			<version>${org.slf4j.version}</version>
 			<scope>compile</scope>
 		</dependency> 
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>org.apache.httpcomponents.httpclient</artifactId>
+		  <version>4.1.0</version>			
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>org.apache.httpcomponents.httpcore</artifactId>
+		  <version>4.1.0</version>			
+		</dependency>		
 	</dependencies>
 </project>
