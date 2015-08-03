@@ -136,8 +136,8 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 		String result;
 		if (!endPointId.equals(AHContainerAddress.DEFAULT_END_POINT_ID)) {
 			StringBuilder sb = new StringBuilder(containerAddress.getAppliancePid());
-			//sb.append(ESPApplication.APPLIANCE_ID_SEPARATOR);
-			//sb.append(containerAddress.getEndPointId());
+			// sb.append(ESPApplication.APPLIANCE_ID_SEPARATOR);
+			// sb.append(containerAddress.getEndPointId());
 			result = sb.toString();
 		} else {
 			result = containerAddress.getAppliancePid();
@@ -214,7 +214,7 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 		try {
 			long startTime = System.currentTimeMillis();
 			LOG.debug(String.format("Periodic task execution -> START %s", startTime));
-				energyBrain.periodicTask();
+			energyBrain.periodicTask();
 			notifyOverloadStatusUpdate(currentOverloadStatus);
 			LOG.debug(String.format("Periodic task execution -> END %s", System.currentTimeMillis()));
 		} catch (Exception e) {
@@ -274,9 +274,13 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 				energyBrain.setOnOffProxy(onOffProxy);
 
 				if (ESPConfiguration.isPowerProfileClusterEnabled())
-					serviceClusters = new IServiceCluster[] { (IServiceCluster) meteringProxy, (IServiceCluster) onOffProxy, (IServiceCluster) whiteGoodProxy.asPowerProfileClient(), (IServiceCluster) whiteGoodProxy.asApplianceControlClient(), (IServiceCluster) whiteGoodProxy.asApplianceStatisticsClient(), (IServiceCluster) meteringServerObject };
+					serviceClusters = new IServiceCluster[] { (IServiceCluster) meteringProxy, (IServiceCluster) onOffProxy,
+							(IServiceCluster) whiteGoodProxy.asPowerProfileClient(), (IServiceCluster) whiteGoodProxy.asApplianceControlClient(),
+							(IServiceCluster) whiteGoodProxy.asApplianceStatisticsClient(), (IServiceCluster) meteringServerObject };
 				else
-					serviceClusters = new IServiceCluster[] { (IServiceCluster) meteringProxy, (IServiceCluster) onOffProxy, (IServiceCluster) whiteGoodProxy.asApplianceControlClient(), (IServiceCluster) whiteGoodProxy.asApplianceStatisticsClient(), (IServiceCluster) meteringServerObject };
+					serviceClusters = new IServiceCluster[] { (IServiceCluster) meteringProxy, (IServiceCluster) onOffProxy,
+							(IServiceCluster) whiteGoodProxy.asApplianceControlClient(), (IServiceCluster) whiteGoodProxy.asApplianceStatisticsClient(),
+							(IServiceCluster) meteringServerObject };
 
 				executorService.scheduleTask(new Runnable() {
 					public void run() {
@@ -336,28 +340,28 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 	private OverloadStatus currentOverloadStatus = OverloadStatus.NoOverloadWarning;
 
 	public void notifyOverloadStatusUpdate(OverloadStatus status) {
-		LOG.info("Sending Overload Status Update message: {}",status);
+		LOG.info("Sending Overload Status Update message: {}", status);
 		currentOverloadStatus = status;
 		try {
 			switch (status) {
-				case NoOverloadWarning:
-					eventsDispatcherService.postEvent(NO_OVERLOAD_WARNING, null);
-					break;
-				case OverLoadRiskIfApplianceStarts:
-					eventsDispatcherService.postEvent(OVERLOAD_RISK_IF_APPLIANCE_STARTS, null);
-					break;
-				case ContractualPowerThresholdWarning:
-					eventsDispatcherService.postEvent(CONTRACTUAL_POWER_THRESHOLD_WARNING, null);
-					break;
-				case FirstPowerThresholdWarning:
-					eventsDispatcherService.postEvent(FIRST_POWER_THRESHOLD_WARNING, null);
-					break;
-				case SecondPowerThresholdWarning:
-					eventsDispatcherService.postEvent(SECOND_POWER_THRESHOLD_WARNING, null);
-					break;
-	
-				default:
-					break;
+			case NoOverloadWarning:
+				eventsDispatcherService.postEvent(NO_OVERLOAD_WARNING, null);
+				break;
+			case OverLoadRiskIfApplianceStarts:
+				eventsDispatcherService.postEvent(OVERLOAD_RISK_IF_APPLIANCE_STARTS, null);
+				break;
+			case ContractualPowerThresholdWarning:
+				eventsDispatcherService.postEvent(CONTRACTUAL_POWER_THRESHOLD_WARNING, null);
+				break;
+			case FirstPowerThresholdWarning:
+				eventsDispatcherService.postEvent(FIRST_POWER_THRESHOLD_WARNING, null);
+				break;
+			case SecondPowerThresholdWarning:
+				eventsDispatcherService.postEvent(SECOND_POWER_THRESHOLD_WARNING, null);
+				break;
+
+			default:
+				break;
 			}
 		} catch (Exception e) {
 			LOG.error("notifyStatusUpdate exception", e);
@@ -378,12 +382,12 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 			LOG.debug("notifyApplianceAdded " + appliancePid);
 			IEndPoint[] eps = appliance.getEndPoints();
 			IEndPoint ep = null;
-			
+
 			if (eps.length <= 1) {
 				LOG.warn("notifyApplianceAdded error: invalid end point list");
 				return;
 			}
-			
+
 			for (int i = 1; i < eps.length; i++) {
 				ep = eps[i];
 				DeviceType deviceType = getDeviceType(ep);
@@ -399,7 +403,8 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 				Integer categoryPid = categoryPidString == null ? null : new Integer(categoryPidString);
 				// TODO: location are not yet initialized
 				// TODO: check for enum order in the xml file
-				config = new DeviceConfigurationImpl(nickname, (categoryPid == null || (DeviceCategory.values().length < categoryPid.intValue())) ? null : DeviceCategory.values()[categoryPid.intValue() - 1], null);
+				config = new DeviceConfigurationImpl(nickname, (categoryPid == null || (DeviceCategory.values().length < categoryPid.intValue())) ? null
+						: DeviceCategory.values()[categoryPid.intValue() - 1], null);
 				String applianceId = getApplianceId(appliancePid, ep.getId());
 				DeviceInfo info = new DeviceInfoImpl(applianceId, applianceId, descriptor, config);
 				DeviceProxy applianceProxy = new DeviceProxy(applicationEndPoint, ep, info);
@@ -551,7 +556,7 @@ public class ESPApplication extends HttpServlet implements IApplicationService, 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ESPException("ESPService - Invalid appliance pid");
-			
+
 		}
 
 	}

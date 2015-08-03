@@ -23,8 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SwarmStatistics {
-	private static final Logger LOG = LoggerFactory.getLogger( SwarmStatistics.class );
-	
+	private static final Logger LOG = LoggerFactory.getLogger(SwarmStatistics.class);
+
 	List<float[]> overloads = new ArrayList<float[]>();
 	List<float[]> costs = new ArrayList<float[]>();
 	List<float[]> tardiness = new ArrayList<float[]>();
@@ -34,7 +34,7 @@ public class SwarmStatistics {
 	float leastTardiness = Float.POSITIVE_INFINITY;
 	double leastPenalty = Double.POSITIVE_INFINITY;
 	int lastImprovingCost, lastImprovingOverload, lastImprovedTardiness, lastImprovedPenalty;
-	
+
 	public float getLeastEnergyCost() {
 		return leastEnergyCost;
 	}
@@ -66,7 +66,7 @@ public class SwarmStatistics {
 	public int getLastImprovedPenalty() {
 		return lastImprovedPenalty;
 	}
-		
+
 	public List<float[]> getOverloads() {
 		return overloads;
 	}
@@ -93,7 +93,7 @@ public class SwarmStatistics {
 			}
 		}
 	}
-	
+
 	public void addCosts(float[] cos) {
 		costs.add(cos);
 		for (int i = 0; i < cos.length; ++i) {
@@ -104,7 +104,7 @@ public class SwarmStatistics {
 			}
 		}
 	}
-	
+
 	public void addTardiness(float[] tars) {
 		tardiness.add(tars);
 		for (int i = 0; i < tars.length; ++i) {
@@ -115,7 +115,7 @@ public class SwarmStatistics {
 			}
 		}
 	}
-	
+
 	public void addPenalties(double[] pens) {
 		penalties.add(pens);
 		for (int i = 0; i < pens.length; ++i) {
@@ -126,7 +126,7 @@ public class SwarmStatistics {
 			}
 		}
 	}
-	
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer("Swarm statistics:\n");
 		sb.append(String.format("least overload = %12.9f - at iteration %d\n", leastOverload, lastImprovingOverload));

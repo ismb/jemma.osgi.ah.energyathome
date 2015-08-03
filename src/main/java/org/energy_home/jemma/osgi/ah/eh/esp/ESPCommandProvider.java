@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.osgi.ah.eh.esp;
 
-
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -71,8 +70,7 @@ public class ESPCommandProvider implements CommandProvider {
 		if (strResolution != null) {
 			try {
 				resolution = Integer.parseInt(strResolution);
-				if (resolution != ESPService.HOUR_RESOLUTION && resolution != ESPService.DAY_RESOLUTION
-						&& resolution != ESPService.MONTH_RESOLUTION)
+				if (resolution != ESPService.HOUR_RESOLUTION && resolution != ESPService.DAY_RESOLUTION && resolution != ESPService.MONTH_RESOLUTION)
 					resolution = null;
 			} catch (Exception e) {
 				resolution = null;
@@ -158,10 +156,9 @@ public class ESPCommandProvider implements CommandProvider {
 			return;
 		Float instantaneousPowerLimit = parseFloat(ci);
 		Float peakProducedPower = parseFloat(ci);
-		
-		ESPConfigParameters configParameters = instantaneousPowerLimit != null ? new ESPConfigParameters(
-				instantaneousPowerLimit.floatValue(), peakProducedPower == null ? 
-						ESPConfigParameters.DEFAULT_PEAK_PRODUCED_POWER : peakProducedPower.floatValue()) : null;
+
+		ESPConfigParameters configParameters = instantaneousPowerLimit != null ? new ESPConfigParameters(instantaneousPowerLimit.floatValue(),
+				peakProducedPower == null ? ESPConfigParameters.DEFAULT_PEAK_PRODUCED_POWER : peakProducedPower.floatValue()) : null;
 		try {
 			espService.setConfiguration(configParameters);
 			ci.print("Configuration updated: " + configParameters);
@@ -218,13 +215,13 @@ public class ESPCommandProvider implements CommandProvider {
 			if (result != null)
 				ci.println("Result: " + result);
 			else
-				ci.println("No result");			
+				ci.println("No result");
 		} catch (ESPException e) {
 			e.printStackTrace();
 			return;
 		}
 	}
-	
+
 	public void _gse(CommandInterpreter ci) {
 		if (!checkESPService(ci))
 			return;
@@ -248,13 +245,13 @@ public class ESPCommandProvider implements CommandProvider {
 			if (result != null)
 				ci.println("Result: " + result);
 			else
-				ci.println("No result");			
+				ci.println("No result");
 		} catch (ESPException e) {
 			e.printStackTrace();
 			return;
 		}
 	}
-	
+
 	public void _gev(CommandInterpreter ci) {
 		if (!checkESPService(ci))
 			return;
@@ -276,15 +273,13 @@ public class ESPCommandProvider implements CommandProvider {
 		String appliancePid = ci.nextArgument();
 		try {
 			if (appliancePid != null) {
-				List<Float> result = espService.getEnergyConsumption(appliancePid, startTime.longValue(), endTime.longValue(),
-						resolution.intValue());
+				List<Float> result = espService.getEnergyConsumption(appliancePid, startTime.longValue(), endTime.longValue(), resolution.intValue());
 				if (result != null)
 					ci.println("Result: " + result);
 				else
 					ci.println("No result");
 			} else {
-				Map<String, List<Float>> result = espService.getEnergyConsumption(startTime.longValue(), endTime.longValue(),
-						resolution.intValue());
+				Map<String, List<Float>> result = espService.getEnergyConsumption(startTime.longValue(), endTime.longValue(), resolution.intValue());
 				if (result != null)
 					ci.println("Result: " + result);
 				else
@@ -318,15 +313,13 @@ public class ESPCommandProvider implements CommandProvider {
 		String appliancePid = ci.nextArgument();
 		try {
 			if (appliancePid != null) {
-				List<Float> result = espService.getEnergyCost(appliancePid, startTime.longValue(), endTime.longValue(),
-						resolution.intValue());
+				List<Float> result = espService.getEnergyCost(appliancePid, startTime.longValue(), endTime.longValue(), resolution.intValue());
 				if (result != null)
 					ci.println("Result: " + result);
 				else
 					ci.println("No result");
 			} else {
-				Map<String, List<Float>> result = espService.getEnergyCost(startTime.longValue(), endTime.longValue(),
-						resolution.intValue());
+				Map<String, List<Float>> result = espService.getEnergyCost(startTime.longValue(), endTime.longValue(), resolution.intValue());
 				if (result != null)
 					ci.println("Result: " + result);
 				else

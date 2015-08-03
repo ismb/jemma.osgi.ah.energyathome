@@ -78,7 +78,6 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			return null;
 		}
 
-
 	};
 
 	// TODO: check merge, different values in 3.3.0
@@ -185,7 +184,7 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			}
 		}
 	}
-	
+
 	private void refreshCurrentSummationReceivedSubscription(ApplianceInfo appliance) {
 		float formatting = getOrRetrieveSummationFormatting(appliance);
 		if (formatting != IMeteringProxy.INVALID_FORMATTING_VALUE) {
@@ -251,10 +250,12 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			if (signedPower <= powerThresholds.getContractualThreshold() && !currentOverloadStatus.equals(OverloadStatus.NoOverloadWarning)) {
 				currentOverloadStatus = OverloadStatus.NoOverloadWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
-			} else if (signedPower > powerThresholds.getContractualThreshold() && signedPower <= powerThresholds.getFirstThreshold() && !currentOverloadStatus.equals(OverloadStatus.ContractualPowerThresholdWarning)) {
+			} else if (signedPower > powerThresholds.getContractualThreshold() && signedPower <= powerThresholds.getFirstThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.ContractualPowerThresholdWarning)) {
 				currentOverloadStatus = OverloadStatus.ContractualPowerThresholdWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
-			} else if (signedPower > powerThresholds.getFirstThreshold() && signedPower <= powerThresholds.getSecondThreshold() && !currentOverloadStatus.equals(OverloadStatus.FirstPowerThresholdWarning)) {
+			} else if (signedPower > powerThresholds.getFirstThreshold() && signedPower <= powerThresholds.getSecondThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.FirstPowerThresholdWarning)) {
 				currentOverloadStatus = OverloadStatus.FirstPowerThresholdWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
 			} else if (signedPower > powerThresholds.getSecondThreshold() && !currentOverloadStatus.equals(OverloadStatus.SecondPowerThresholdWarning)) {
@@ -287,11 +288,13 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 						}
 
 						if (smartInfoProduction != appliance) {
-							// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
+							// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L
+							// APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO
+							// SE SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL
+							// CLUSTER METERING 0x0702
 							if ((appliance.getApplianceType() == DeviceType.WINDOW_COVERING) || (appliance.getApplianceType() == DeviceType.DOOR_LOCK))
 								continue;
 
-							
 							// TODO: check merge, different values in 3.3.0
 							// if (System.currentTimeMillis() -
 							// appliance.getAccumulatedEnergyTime() > 1500 *
@@ -320,8 +323,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 
 		// Send requests to smart infos depending on current polling frequency
 		try {
-			LOG.debug("lastSmartInfoPollingTime:{}",lastSmartInfoPollingTime);
-			LOG.debug("smartInfoPollingTimeInterval:{}",smartInfoPollingTimeInterval);
+			LOG.debug("lastSmartInfoPollingTime:{}", lastSmartInfoPollingTime);
+			LOG.debug("smartInfoPollingTimeInterval:{}", smartInfoPollingTimeInterval);
 			if (System.currentTimeMillis() - lastSmartInfoPollingTime >= smartInfoPollingTimeInterval) {
 				if (smartInfoExchange != null && smartInfoExchange.isAvailable()) {
 					smartInfoExchange.setNextTotalEnergyValidValues(1);
@@ -353,7 +356,6 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			throw new IllegalArgumentException("The argument cannot be null.");
 		meteringProxy = proxy;
 	}
-
 
 	public IOnOffProxy getOnOffProxy() {
 		return onOffProxy;
@@ -728,7 +730,9 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 		appliance.setAvailable(isAvailable);
 		if (appliance.isAvailable()) {
 			if (appliance != smartInfoProduction) {
-				// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
+				// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE
+				// NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN
+				// CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
 				if ((appliance.getApplianceType() == DeviceType.DOOR_LOCK) || (appliance.getApplianceType() == DeviceType.WINDOW_COVERING))
 					return;
 				refreshCurrentSummationDeliveredSubscription(appliance);
